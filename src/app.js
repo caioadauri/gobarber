@@ -9,15 +9,17 @@ class App {
   constructor() {
     // cria o servidor do express
     this.server = express();
-    //chama o método middlewares e routes
+    // chama o método middlewares e routes
     this.middlewares();
     this.routes();
   }
-//cria o método middlewares
+
+  // cria o método middlewares
   middlewares() {
     this.server.use(express.json());
   }
-//cria o método routes
+
+  // cria o método routes
   routes() {
     this.server.use(routes);
   }
