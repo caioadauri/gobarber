@@ -23,4 +23,4 @@ class App {
   }
 }
 // cria a instância da classe App utilizando o método new
-module.exports = new App().server;
+export default new App().server;
