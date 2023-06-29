@@ -3,6 +3,8 @@ import express from 'express';
 // importa o módulo de rotas
 import routes from './routes';
 
+import './database';
+
 // define a classe App
 class App {
   // cria o construtor da classe
