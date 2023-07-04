@@ -1,5 +1,6 @@
 // importa o framework express
 import express from 'express';
+import path from 'path';
 // importa o módulo de rotas
 import routes from './routes';
 
@@ -19,6 +20,10 @@ class App {
   // cria o método middlewares
   middlewares() {
     this.server.use(express.json());
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   // cria o método routes
