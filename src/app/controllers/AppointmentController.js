@@ -142,11 +142,11 @@ class AppointmentController {
 
     await appointment.save();
 
-    Mail.sendMail({
+    await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Agendamento cancelado',
       template: 'cancellation',
-      content: {
+      context: {
         provider: appointment.provider.name,
         user: appointment.user.name,
         date: format(appointment.date, "'dia' dd 'de' MMMM', às' H:mm'h'", {
