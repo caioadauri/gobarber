@@ -18,3 +18,9 @@ services:
       - 27017:27017
     volumes:
       - ./mongo-data:/data/db
+
+  redisbarber:
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379

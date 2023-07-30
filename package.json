@@ -4,11 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "queue": "nodemon src/queue.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.5.0",
     "date-fns": "^2.0.0-beta.5",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
