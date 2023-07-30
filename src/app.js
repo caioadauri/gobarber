@@ -1,6 +1,10 @@
 // importa o framework express
 import express from 'express';
 import path from 'path';
+import Youch from 'youch';
+import * as Sentry from '@sentry/node';
+import sentryConfig from './config/sentry';
+import 'express-async-errors';
 // importa o módulo de rotas
 import routes from './routes';
 
@@ -12,13 +16,17 @@ class App {
   constructor() {
     // cria o servidor do express
     this.server = express();
+
+    Sentry.init(sentryConfig);
     // chama o método middlewares e routes
     this.middlewares();
     this.routes();
+    this.exceptionHandler();
   }
 
   // cria o método middlewares
   middlewares() {
+    this.server.use(Sentry.Handlers.requestHandler());
     this.server.use(express.json());
     this.server.use(
       '/files',
@@ -29,6 +37,15 @@ class App {
   // cria o método routes
   routes() {
     this.server.use(routes);
+    this.server.use(Sentry.Handlers.errorHandler());
+  }
+
+  exceptionHandler() {
+    this.server.use(async (err, req, res, next) => {
+      const errors = await new Youch(err, req).toJSON();
+
+      return res.status(500).json(errors);
+    });
   }
 }
 // cria a instância da classe App utilizando o método new
