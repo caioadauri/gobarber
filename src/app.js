@@ -1,3 +1,4 @@
+import 'dotenv/config';
 // importa o framework express
 import express from 'express';
 import path from 'path';
@@ -42,9 +43,12 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
-      const errors = await new Youch(err, req).toJSON();
+      if (process.env.NODE_ENV !== 'production') {
+        const errors = await new Youch(err, req).toJSON();
 
-      return res.status(500).json(errors);
+        return res.status(500).json(errors);
+      }
+      return res.status(500).json({ error: 'Internal Server Error' });
     });
   }
 }
